@@ -4,12 +4,14 @@ import Footer from "./components/Footer";
 import "./App.scss";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
+import ProductInfo from "./pages/ProductInfo";
 
 function App() {
   return (
     <Router>
       <Header />
       <Switch>
+        <Route path='/category/:productid/:product' component={ProductInfo} />
         <Route path='/category/:productid' component={ProductPage} />
         <Route exact path='/' component={CategoryPage} />
       </Switch>

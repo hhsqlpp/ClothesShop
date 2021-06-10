@@ -2,12 +2,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat";
 }
 
 .container {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+}
+
+.header {
 }
 
 .category {
@@ -51,6 +55,95 @@
       position: absolute;
       top: 160px;
       text-shadow: 1px 1px 10px #000;
+    }
+  }
+}
+
+.main {
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 50px;
+  }
+}
+
+.product {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-bottom: 25px;
+
+    &-img {
+      width: 300px;
+      height: 200px;
+    }
+
+    &-name {
+      max-width: 300px;
+    }
+
+    &-price {
+      span {
+        color: #cd5a00;
+      }
+    }
+  }
+}
+
+.filter {
+  &-brand,
+  &-color {
+    padding: 16px;
+    border: 1px solid #000;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    h4 {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    div {
+      margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    label {
+      padding-left: 30px;
+      position: relative;
+      vertical-align: middle;
+    }
+
+    label:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #000;
+      margin-right: 15px;
+      transition: 0.2s;
+    }
+
+    input[type="checkbox"]:checked + label:before {
+      background-color: #ccc;
     }
   }
 }
