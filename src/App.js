@@ -5,6 +5,7 @@ import "./App.scss";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 import ProductInfo from "./pages/ProductInfo";
+import Brands from "./components/Brands";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/category/:productid' component={ProductPage} />
         <Route exact path='/' component={CategoryPage} />
       </Switch>
+      <Brands />
       <Footer />
     </Router>
   );

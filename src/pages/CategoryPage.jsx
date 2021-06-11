@@ -13,7 +13,7 @@ export default function CategoryPage() {
   return (
     <div className='category'>
       <div className='container'>
-        <h2 className='category-name'>Категория</h2>
+        <h2 className='category-name'>Категории:</h2>
         <div className='category-items'>
           {categories === [] ? (
             <div>Загрузка</div>
