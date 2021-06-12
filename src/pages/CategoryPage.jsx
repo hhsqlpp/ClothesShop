@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Category from "../components/Category";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCategories } from "../store/actions/categories";
 
 export default function CategoryPage() {
-  let [categories, setCategories] = useState([]);
+  let dispatch = useDispatch();
+  let { categories, loading } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    fetch("http://localhost:1717/categories")
-      .then((data) => data.json())
-      .then((data) => setCategories(data));
+    dispatch(fetchCategories())
   }, []);
 
   return (
@@ -15,12 +16,12 @@ export default function CategoryPage() {
       <div className='container'>
         <h2 className='category-name'>Категории:</h2>
         <div className='category-items'>
-          {categories === [] ? (
+          {loading ? (
             <div>Загрузка</div>
           ) : (
             <>
               {categories.map((item) => (
-                <Category category={item} key={item.name} />
+                <Category category={item} key={item.href} />
               ))}
             </>
           )}

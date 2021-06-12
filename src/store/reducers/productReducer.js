@@ -1,6 +1,6 @@
 import {
-  FETCH_END,
-  FETCH_START,
+  PRODUCT_FETCH_END,
+  PRODUCT_FETCH_START,
   PRODUCT_FAILURE,
   PRODUCT_SUCCESS,
   SET_PRODUCT,
@@ -19,12 +19,12 @@ export default function productReducer(state = initialState, action) {
         ...state,
         product: action.payload,
       };
-    case FETCH_START:
+    case PRODUCT_FETCH_START:
       return {
         ...state,
         loading: true,
       };
-    case FETCH_END:
+    case PRODUCT_FETCH_END:
       return {
         ...state,
         loading: false,

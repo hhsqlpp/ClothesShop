@@ -10,10 +10,10 @@ export default function ProductPage() {
   let dispatch = useDispatch();
   let { product, loading } = useSelector((state) => state.product);
   let { productid } = useParams();
-
+  
   useEffect(() => {
     dispatch(fetchProduct(productid));
-  }, []);
+  }, [productid]);
 
   let heading = "";
 

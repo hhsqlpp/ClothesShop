@@ -1,7 +1,7 @@
 import {
   SET_PRODUCT,
-  FETCH_START,
-  FETCH_END,
+  PRODUCT_FETCH_START,
+  PRODUCT_FETCH_END,
   PRODUCT_SUCCESS,
   PRODUCT_FAILURE,
 } from "./types";
@@ -15,7 +15,7 @@ export function setProduct(data) {
 
 export function fetchProduct(id) {
   return function (dispatch) {
-    dispatch({ type: FETCH_START });
+    dispatch({ type: PRODUCT_FETCH_START });
 
     fetch("http://localhost:1717/category/" + id)
       .then((data) => data.json())
@@ -27,7 +27,7 @@ export function fetchProduct(id) {
           dispatch({ type: PRODUCT_SUCCESS });
         }
 
-        dispatch({ type: FETCH_END });
+        dispatch({ type: PRODUCT_FETCH_END });
       })
       .catch((e) => console.log(e));
   };
