@@ -9,8 +9,8 @@ export default function Header() {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories())
-  }, [])
+    dispatch(fetchCategories());
+  }, []);
 
   return (
     <header className='header'>
@@ -19,17 +19,21 @@ export default function Header() {
         <nav className='navigation'>
           {!loading ? (
             categories.map((category) => (
-              <Link to={`/category/${category.href}`} key={category.name}>{category.name}</Link>
+              <Link to={`/category/${category.href}`} key={category.name}>
+                {category.name}
+              </Link>
             ))
           ) : (
             <div>Loading</div>
           )}
         </nav>
-        <div className="header__right">
-          <Link to="/login" className="login">Log in</Link>
-          <Link to="/cart" className="cart">
-            <img src={cart} alt="cart" />
-          </Link>   
+        <div className='header__right'>
+          <Link to='/login' className='login'>
+            Log in
+          </Link>
+          <Link to='/cart' className='cart'>
+            <img src={cart} alt='cart' />
+          </Link>
         </div>
       </div>
     </header>

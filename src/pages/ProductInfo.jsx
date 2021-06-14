@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { fetchProductinfo } from "../store/actions/productInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../store/actions/cart";
 
 export default function ProductInfo() {
   const { product, productid } = useParams();
-  const [productInfo, setProductInfo] = useState({});
+  let { productInfo } = useSelector((state) => state.productInfo);
+  let dispatch = useDispatch();
+  let cart = useSelector((state) => state.cart);
 
-  useEffect(() => {
-    fetch("http://localhost:1717/category/" + productid + "/" + product)
-      .then((data) => data.json())
-      .then((data) => setProductInfo(data));
-  }, []);
-
-  let category = "";
   let sizes = [
     "XS",
     "S",
@@ -24,6 +22,11 @@ export default function ProductInfo() {
     "BXXL",
     "BXXXL",
   ];
+
+  let [selectSize, setSelectSize] = useState(sizes[0]);
+  let [countForm, setCountForm] = useState(1);
+
+  let category = "";
 
   switch (productid) {
     case "shoes":
@@ -45,6 +48,31 @@ export default function ProductInfo() {
     default:
       break;
   }
+
+  useEffect(() => {
+    dispatch(fetchProductinfo(productid, product));
+  }, []);
+
+  const countChange = (e) => {
+    setCountForm(e.target.value);
+  };
+
+  const changeSize = (e) => {
+    setSelectSize(e.target.value);
+  };
+
+  const addToCart = () => {
+    let body = {
+      name: productInfo.name,
+      price: productInfo.price,
+      image: productInfo.img,
+      count: countForm,
+      size: selectSize,
+      brand: productInfo.brand,
+    };
+    dispatch(fetchCart(body));
+    alert("Товар успешно добавлен в корзину!");
+  };
 
   return (
     <div className='product-info'>
@@ -76,21 +104,29 @@ export default function ProductInfo() {
           </div>
           <div className='product-info__block-size'>
             <label htmlFor='size'>Размер {category}:</label>
-            <select>
+            <select value={selectSize} onChange={changeSize}>
               {sizes.map((size) => {
-                return (
-                  <option value={size} key={size}>
-                    {size}
-                  </option>
-                );
+                return <option key={size}>{size}</option>;
               })}
             </select>
           </div>
           <div className='product-info__block-count'>
             <label htmlFor='count'>Количество:</label>
-            <input name='count' type='number' value='1' />
+            <input
+              name='count'
+              type='number'
+              value={countForm}
+              onChange={countChange}
+            />
           </div>
-          <button type='button'>Добавить в корзину</button>
+          <button
+            type='button'
+            onClick={() => {
+              addToCart();
+            }}
+          >
+            Добавить в корзину
+          </button>
         </div>
       </div>
     </div>

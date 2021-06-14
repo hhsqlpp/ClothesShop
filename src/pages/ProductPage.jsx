@@ -10,7 +10,7 @@ export default function ProductPage() {
   let dispatch = useDispatch();
   let { product, loading } = useSelector((state) => state.product);
   let { productid } = useParams();
-  
+
   useEffect(() => {
     dispatch(fetchProduct(productid));
   }, [productid]);
@@ -54,8 +54,8 @@ export default function ProductPage() {
           )}
         </div>
         <div className='filter'>
-          <FilterBrand />
-          <FilterColor />
+          <FilterBrand product={product} />
+          <FilterColor product={product} />
         </div>
       </div>
     </div>

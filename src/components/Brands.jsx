@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Brand from "./Brand";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBrands } from "../store/actions/brands";
 
 export default function Brands() {
-  let [brands, setBrands] = useState([]);
+  let dispatch = useDispatch();
+  let { brands, loading } = useSelector((state) => state.brands);
 
   useEffect(() => {
-    fetch("http://localhost:1717/brands")
-      .then((data) => data.json())
-      .then((data) => setBrands(data));
+    dispatch(fetchBrands());
   }, []);
 
   return (

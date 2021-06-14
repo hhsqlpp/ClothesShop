@@ -1,44 +1,45 @@
 import {
-  PRODUCT_FETCH_START,
-  PRODUCT_INFO_FAILURE,
-  PRODUCT_INFO_FETCH_END,
-  PRODUCT_INFO_SUCCESS,
-  SET_PRODUCT_INFO,
+  CART_FAIlURE,
+  CART_FETCH_END,
+  CART_FETCH_START,
+  CART_SUCCESS,
+  GET_CART,
+  SET_CART,
 } from "../actions/types";
 
 const initialState = {
   loading: true,
   error: false,
-  productInfo: {},
+  cart: [],
 };
 
-export default function (state = initialState, action) {
+export default function cartReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_PRODUCT_INFO:
+    case SET_CART:
       return {
         ...state,
-        productInfo: action.payload,
+        cart: [...state.cart, action.payload],
       };
       break;
-    case PRODUCT_FETCH_START:
+    case CART_FETCH_START:
       return {
         ...state,
         loading: true,
       };
       break;
-    case PRODUCT_INFO_FETCH_END:
+    case CART_FETCH_END:
       return {
         ...state,
         loading: false,
       };
       break;
-    case PRODUCT_INFO_SUCCESS:
+    case CART_SUCCESS:
       return {
         ...state,
         error: false,
       };
       break;
-    case PRODUCT_INFO_FAILURE:
+    case CART_FAIlURE:
       return {
         ...state,
         error: true,

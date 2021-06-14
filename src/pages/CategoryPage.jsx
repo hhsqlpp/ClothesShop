@@ -1,15 +1,8 @@
-import { useEffect } from "react";
 import Category from "../components/Category";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchCategories } from "../store/actions/categories";
+import { useSelector } from "react-redux";
 
 export default function CategoryPage() {
-  let dispatch = useDispatch();
   let { categories, loading } = useSelector((state) => state.categories);
-
-  useEffect(() => {
-    dispatch(fetchCategories())
-  }, []);
 
   return (
     <div className='category'>

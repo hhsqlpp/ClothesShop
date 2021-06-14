@@ -3,6 +3,10 @@ export default function FilterColor() {
     <form className='filter-color'>
       <h4>Цвет:</h4>
       <div>
+        <input type='checkbox' id='All' checked />
+        <label htmlFor='All'>Все</label>
+      </div>
+      <div>
         <input type='checkbox' id='Белый' />
         <label htmlFor='Белый'>Белый</label>
       </div>

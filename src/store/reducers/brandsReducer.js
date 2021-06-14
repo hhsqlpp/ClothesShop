@@ -1,44 +1,44 @@
 import {
-  PRODUCT_FETCH_START,
-  PRODUCT_INFO_FAILURE,
-  PRODUCT_INFO_FETCH_END,
-  PRODUCT_INFO_SUCCESS,
-  SET_PRODUCT_INFO,
+  BRANDS_FAIlURE,
+  BRANDS_FETCH_END,
+  BRANDS_FETCH_START,
+  BRANDS_SUCCESS,
+  SET_BRANDS,
 } from "../actions/types";
 
 const initialState = {
   loading: true,
   error: false,
-  productInfo: {},
+  brands: [],
 };
 
-export default function (state = initialState, action) {
+export default function brandsReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_PRODUCT_INFO:
+    case SET_BRANDS:
       return {
         ...state,
-        productInfo: action.payload,
+        brands: action.payload,
       };
       break;
-    case PRODUCT_FETCH_START:
+    case BRANDS_FETCH_START:
       return {
         ...state,
         loading: true,
       };
       break;
-    case PRODUCT_INFO_FETCH_END:
+    case BRANDS_FETCH_END:
       return {
         ...state,
         loading: false,
       };
       break;
-    case PRODUCT_INFO_SUCCESS:
+    case BRANDS_SUCCESS:
       return {
         ...state,
         error: false,
       };
       break;
-    case PRODUCT_INFO_FAILURE:
+    case BRANDS_FAIlURE:
       return {
         ...state,
         error: true,
