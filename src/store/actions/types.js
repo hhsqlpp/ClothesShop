@@ -32,4 +32,9 @@ export const CART_FETCH_START = "CART/FETCH_START";
 export const CART_FETCH_END = "CART/FETCH_END";
 export const CART_SUCCESS = "CART/CART_SUCCESS";
 export const CART_FAIlURE = "CART/CART_SUCCESS";
-export const DELETE_FROM_CART = "CART/DELETE_FROM_CART"
+export const DELETE_FROM_CART = "CART/DELETE_FROM_CART";
+
+// Auth
+export const LOGIN_SUCCESS = "AUTH/SUCCESS";
+export const LOGIN_FAILURE = "AUTH/FAILURE";
+export const LOGOUT = "AUTH/LOGOUT";

@@ -7,14 +7,18 @@ import ProductPage from "./pages/ProductPage";
 import ProductInfo from "./pages/ProductInfo";
 import Brands from "./components/Brands";
 import CartPage from "./pages/CartPage";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <Router>
       <Header />
       <Switch>
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
         <Route path='/cart' component={CartPage} />
-        <Route path='/category/:categoryName/:product' component={ProductInfo} />
+        <Route path='/category/:categoryName/:productid' component={ProductInfo} />
         <Route path='/category/:categoryName' component={ProductPage} />
         <Route exact path='/' component={CategoryPage} />
       </Switch>
