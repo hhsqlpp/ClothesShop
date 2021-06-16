@@ -3,19 +3,27 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import rootReducer from "./store/reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import persistedReducer from "./store/reducers";
 
 const store = createStore(
-  rootReducer,
+  persistedReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+const persistor = persistStore(store);
+
+export {store, persistor};
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>    
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")

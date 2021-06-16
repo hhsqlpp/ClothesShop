@@ -1,36 +1,48 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
+import { deleteFromCart } from "../store/actions/cart";
 
 export default function CartPage() {
+  let dispatch = useDispatch();
   let { cart } = useSelector((state) => state.cart);
+
+  let [modal, setModal] = useState(false);
   let [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
-    try {
-      let a = cart.reduce((prev, curr, i, arr) => {
-        console.log(arr);
-        console.log(curr.price);
-        let total =
-          Number(prev.price * prev.count) + Number(curr.price * curr.count);
+  const handleOpenModal = () => {
+    setModal(!modal)
+  }
 
-        setTotalPrice(total);
+  const handleRemove = (id) => {
+    dispatch(deleteFromCart(id))
+    alert("Товар был удален из корзины");
+  }
+
+  useEffect(() => {
+    if (cart.length !== 0) {
+      let totalPrice = 0;
+
+      cart.forEach((item) => {
+        totalPrice += Number(item.price * item.count)
+
+        setTotalPrice(totalPrice)
       });
-    } catch {
-      return null;
+    } else {
+      setTotalPrice(0)
     }
-  }, []);
+  }, [cart]);
 
   return (
     <div className='cart'>
       <div className='container'>
-        {cart === [] ? (
-          <div>Корзина пуста</div>
+        {cart.length === 0 ? (
+          <div className="cart-empty">Корзина пуста</div>
         ) : (
           <>
             <div className='cart-block'>
               {cart.map((item) => (
-                <CartItem data={item} key={item.id} />
+                <CartItem data={item} key={item.id} handleRemove={handleRemove} />
               ))}
             </div>
           </>
@@ -41,10 +53,26 @@ export default function CartPage() {
             <span>{totalPrice} сом</span>
           </div>
           <div className='buy-block'>
-            <button id='buy' type='button'>
+            <button id='buy' type='button' onClick={handleOpenModal}>
               Купить
             </button>
           </div>
+        </div>
+        <div className={`modal ${!modal ? "none" : null}`}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <h3>Оформить заказ</h3>
+              <form>
+                <label htmlFor="name">Имя:</label>
+                <input type="text" name="name" placeholder="Иванов Александр" />
+                <label htmlFor="phone">Номер телефона:</label>
+                <input type="text" name="phone" placeholder="0 123 456 789" />
+                <label htmlFor="addres">Адрес:</label>
+                <input type="text" name="addres" placeholder="Тверская улица, дом 13" />
+                <button type="submit">Купить</button>
+              </form>
+            </div>
+          </div>       
         </div>
       </div>
     </div>

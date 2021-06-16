@@ -1,4 +1,4 @@
-export default function CartItem({ data }) {
+export default function CartItem({ data, handleRemove }) {
   return (
     <div className='cart-block__item'>
       <div className='cart-block__item-desc'>
@@ -14,7 +14,7 @@ export default function CartItem({ data }) {
           <span>Количество:</span>
           {data.count}
         </p>
-        <button id='removeFromCart'>Remove from cart</button>
+        <button id='removeFromCart' onClick={() => handleRemove(data.id)}>Удалить из корзины</button>
       </div>
       <img src={data.image} alt={data.name} />
     </div>

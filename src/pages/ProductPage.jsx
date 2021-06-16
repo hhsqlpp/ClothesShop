@@ -9,15 +9,15 @@ import FilterColor from "../components/FilterColor";
 export default function ProductPage() {
   let dispatch = useDispatch();
   let { product, loading } = useSelector((state) => state.product);
-  let { productid } = useParams();
+  let { categoryName } = useParams();
 
   useEffect(() => {
-    dispatch(fetchProduct(productid));
-  }, [productid]);
+    dispatch(fetchProduct(categoryName));
+  }, [categoryName]);
 
   let heading = "";
 
-  switch (productid) {
+  switch (categoryName) {
     case "shoes":
       heading = "Мужская Обувь";
       break;
@@ -46,7 +46,7 @@ export default function ProductPage() {
           {!loading ? (
             <>
               {product.map((item) => (
-                <Product data={item} key={item.id} id={productid} />
+                <Product data={item} key={item.id} id={categoryName} />
               ))}
             </>
           ) : (

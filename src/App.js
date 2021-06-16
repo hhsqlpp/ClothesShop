@@ -14,8 +14,8 @@ function App() {
       <Header />
       <Switch>
         <Route path='/cart' component={CartPage} />
-        <Route path='/category/:productid/:product' component={ProductInfo} />
-        <Route path='/category/:productid' component={ProductPage} />
+        <Route path='/category/:categoryName/:product' component={ProductInfo} />
+        <Route path='/category/:categoryName' component={ProductPage} />
         <Route exact path='/' component={CategoryPage} />
       </Switch>
       <Brands />

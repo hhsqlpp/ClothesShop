@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../store/actions/cart";
 
 export default function ProductInfo() {
-  const { product, productid } = useParams();
+  const { categoryName, productid } = useParams();
   let { productInfo } = useSelector((state) => state.productInfo);
   let dispatch = useDispatch();
-  let cart = useSelector((state) => state.cart);
 
   let sizes = [
     "XS",
@@ -28,7 +27,7 @@ export default function ProductInfo() {
 
   let category = "";
 
-  switch (productid) {
+  switch (categoryName) {
     case "shoes":
       category = "обуви";
       sizes = ["39", "40", "41", "42", "43", "44", "45"];
@@ -50,7 +49,7 @@ export default function ProductInfo() {
   }
 
   useEffect(() => {
-    dispatch(fetchProductinfo(productid, product));
+    dispatch(fetchProductinfo(categoryName, productid));
   }, []);
 
   const countChange = (e) => {

@@ -3,7 +3,7 @@ import {
   CART_FETCH_END,
   CART_FETCH_START,
   CART_SUCCESS,
-  GET_CART,
+  DELETE_FROM_CART,
   SET_CART,
 } from "../actions/types";
 
@@ -19,6 +19,12 @@ export default function cartReducer(state = initialState, action) {
       return {
         ...state,
         cart: [...state.cart, action.payload],
+      };
+      break;
+    case DELETE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.payload)
       };
       break;
     case CART_FETCH_START:
