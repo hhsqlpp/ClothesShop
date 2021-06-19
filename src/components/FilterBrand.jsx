@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { resetFilter, setFilter } from "../store/actions/filter";
 
 export default function FilterBrand() {
-  let [brandsFilter, setBrandsFilter] = useState({ select: "" });
+  let [brandsFilter, setBrandsFilter] = useState({});
+  let dispatch = useDispatch();
 
   const handleChange = (e) => {
     setBrandsFilter({
       ...brandsFilter,
-      select: e.target.name,
+      [e.target.name]: e.target.checked,
     });
+
+    dispatch(setFilter(e.target.name))
+    // dispatch(resetFilter(e.target.name))
   };
 
   return (
@@ -16,12 +22,12 @@ export default function FilterBrand() {
       <div>
         <input
           type='checkbox'
-          id='All'
-          name='All'
+          id='all'
+          name='all'
           value={brandsFilter.all}
           onChange={handleChange}
         />
-        <label htmlFor='All'>Все</label>
+        <label htmlFor='all'>Все</label>
       </div>
       <div>
         <input

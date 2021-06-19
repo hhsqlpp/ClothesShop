@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../store/actions/product";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ export default function ProductPage() {
   let dispatch = useDispatch();
   let { product, loading } = useSelector((state) => state.product);
   let { categoryName } = useParams();
+  let { filters } = useSelector((state) => state.filter);
 
   useEffect(() => {
     dispatch(fetchProduct(categoryName));
@@ -38,6 +39,23 @@ export default function ProductPage() {
       break;
   }
 
+  let [filteredProducts, setFilteredProducts] = useState(product)
+
+  useEffect(() => {
+    setFilteredProducts(product.filter((item) => {
+      if (filters.length) {
+        return filters.includes(item.brand)
+
+      } 
+
+      return product
+      })  
+    )
+    
+    console.log(filteredProducts)
+    console.log(product)
+  }, [filters.length, product.length])
+
   return (
     <div className='main'>
       <h1>{heading}</h1>
@@ -45,7 +63,7 @@ export default function ProductPage() {
         <div className='product'>
           {!loading ? (
             <>
-              {product.map((item) => (
+              {filteredProducts.map((item) => (      
                 <Product data={item} key={item.id} id={categoryName} />
               ))}
             </>

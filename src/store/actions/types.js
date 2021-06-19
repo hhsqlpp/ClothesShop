@@ -38,3 +38,7 @@ export const DELETE_FROM_CART = "CART/DELETE_FROM_CART";
 export const LOGIN_SUCCESS = "AUTH/SUCCESS";
 export const LOGIN_FAILURE = "AUTH/FAILURE";
 export const LOGOUT = "AUTH/LOGOUT";
+
+// Filter
+export const SET_FILTER = "FILTER/SET_FILTER";
+export const RESET_FILTER = "FILTER/RESET_FILTER"
