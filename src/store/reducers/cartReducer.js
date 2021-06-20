@@ -20,40 +20,12 @@ export default function cartReducer(state = initialState, action) {
         ...state,
         cart: [...state.cart, action.payload],
       };
-      break;
     case DELETE_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== action.payload)
+        cart: state.cart.filter((item) => item.id !== action.payload),
       };
-      break;
-    case CART_FETCH_START:
-      return {
-        ...state,
-        loading: true,
-      };
-      break;
-    case CART_FETCH_END:
-      return {
-        ...state,
-        loading: false,
-      };
-      break;
-    case CART_SUCCESS:
-      return {
-        ...state,
-        error: false,
-      };
-      break;
-    case CART_FAIlURE:
-      return {
-        ...state,
-        error: true,
-      };
-      break;
-
     default:
       return state;
-      break;
   }
 }

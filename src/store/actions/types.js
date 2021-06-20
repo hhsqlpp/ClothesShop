@@ -4,6 +4,9 @@ export const PRODUCT_FETCH_START = "PRODUCT/FETCH_START";
 export const PRODUCT_FETCH_END = "PRODUCT/FETCH_END";
 export const PRODUCT_SUCCESS = "PRODUCT/PRODUCT_SUCCESS";
 export const PRODUCT_FAILURE = "PRODUCT/PRODUCT_FAILURE";
+export const PRODUCT_CHANGE = "PRODUCT/PRODUCT_CHANGE";
+export const PRODUCT_DELETE = "PRODUCT/PRODUCT_DELETE";
+export const ADD_PRODUCT = "PRODUCT/ADD_PRODUCT";
 
 // Categories
 export const SET_CATEGORIES = "CATEGORIES/SET_CATEGORIES";
@@ -28,10 +31,6 @@ export const BRANDS_FAIlURE = "BRANDS/BRANDS_SUCCESS";
 
 // Cart
 export const SET_CART = "CART/SET_CART";
-export const CART_FETCH_START = "CART/FETCH_START";
-export const CART_FETCH_END = "CART/FETCH_END";
-export const CART_SUCCESS = "CART/CART_SUCCESS";
-export const CART_FAIlURE = "CART/CART_SUCCESS";
 export const DELETE_FROM_CART = "CART/DELETE_FROM_CART";
 
 // Auth
@@ -41,4 +40,11 @@ export const LOGOUT = "AUTH/LOGOUT";
 
 // Filter
 export const SET_FILTER = "FILTER/SET_FILTER";
-export const RESET_FILTER = "FILTER/RESET_FILTER"
+export const RESET_FILTER = "FILTER/RESET_FILTER";
+
+// Order
+export const SET_ORDER = "ORDER/SET_ORDER";
+export const GET_ORDER = "ORDER/GET_ORDER";
+
+// ProductInfo
+export const SET_ORDER_INFO = "ORDER_INFO/SET_ORDER_INFO";

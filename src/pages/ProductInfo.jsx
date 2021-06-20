@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchProductinfo } from "../store/actions/productInfo";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../store/actions/cart";
+import { setCart } from "../store/actions/cart";
 
 export default function ProductInfo() {
   const { categoryName, productid } = useParams();
@@ -68,8 +68,9 @@ export default function ProductInfo() {
       count: countForm,
       size: selectSize,
       brand: productInfo.brand,
+      id: productInfo.id,
     };
-    dispatch(fetchCart(body));
+    dispatch(setCart(body));
     alert("Товар успешно добавлен в корзину!");
   };
 

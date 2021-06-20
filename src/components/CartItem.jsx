@@ -14,7 +14,9 @@ export default function CartItem({ data, handleRemove }) {
           <span>Количество:</span>
           {data.count}
         </p>
-        <button id='removeFromCart' onClick={() => handleRemove(data.id)}>Удалить из корзины</button>
+        <button id='removeFromCart' onClick={() => handleRemove(data.id)}>
+          Удалить из корзины
+        </button>
       </div>
       <img src={data.image} alt={data.name} />
     </div>

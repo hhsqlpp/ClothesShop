@@ -16,14 +16,14 @@ const store = createStore(
 
 const persistor = persistStore(store);
 
-export {store, persistor};
+export { store, persistor };
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <PersistGate persistor={persistor}>
         <App />
-      </PersistGate>    
+      </PersistGate>
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")

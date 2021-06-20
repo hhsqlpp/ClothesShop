@@ -4,10 +4,13 @@ import {
   PRODUCT_FAILURE,
   PRODUCT_SUCCESS,
   SET_PRODUCT,
+  PRODUCT_CHANGE,
+  PRODUCT_DELETE,
+  ADD_PRODUCT,
 } from "../actions/types";
 
 const initialState = {
-  product: [],
+  products: [],
   loading: true,
   error: false,
 };
@@ -17,7 +20,23 @@ export default function productReducer(state = initialState, action) {
     case SET_PRODUCT:
       return {
         ...state,
-        product: action.payload,
+        products: action.payload,
+      };
+    case PRODUCT_CHANGE:
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product.id === action.payload.id ? action.payload : product
+        ),
+      };
+    case PRODUCT_DELETE:
+      return {
+        ...state,
+      };
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        products: [action.payload, ...state.products],
       };
     case PRODUCT_FETCH_START:
       return {

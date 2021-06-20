@@ -29,8 +29,13 @@ export default function Header() {
         </nav>
         <div className='header__right'>
           <Link to='/login' className='login'>
-            Log in
+            Войти
           </Link>
+          {localStorage.getItem("x-token") === "token_2_-FtINHc" ? (
+            <Link to='/admin' className='admin'>
+              Админ
+            </Link>
+          ) : null}
           <Link to='/cart' className='cart'>
             <img src={cart} alt='cart' />
           </Link>

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetFilter, setFilter } from "../store/actions/filter";
 
 export default function FilterBrand() {
-  let [brandsFilter, setBrandsFilter] = useState({});
+  let [brandsFilter, setBrandsFilter] = useState({ all: true });
   let dispatch = useDispatch();
+  let { filters } = useSelector((state) => state.filter);
 
   const handleChange = (e) => {
     setBrandsFilter({
@@ -12,8 +13,22 @@ export default function FilterBrand() {
       [e.target.name]: e.target.checked,
     });
 
-    dispatch(setFilter(e.target.name))
-    // dispatch(resetFilter(e.target.name))
+    if (filters.includes(e.target.name)) {
+      dispatch(resetFilter(e.target.name));
+    } else {
+      dispatch(setFilter(e.target.name));
+    }
+
+    if (!filters.length) {
+      setBrandsFilter({
+        ...brandsFilter,
+        all: false,
+      });
+    }
+
+    if (filters.includes("all")) {
+      dispatch(resetFilter("all"));
+    }
   };
 
   return (
@@ -26,6 +41,7 @@ export default function FilterBrand() {
           name='all'
           value={brandsFilter.all}
           onChange={handleChange}
+          checked={brandsFilter.all ? true: false}
         />
         <label htmlFor='all'>Все</label>
       </div>
@@ -93,7 +109,7 @@ export default function FilterBrand() {
         <input
           type='checkbox'
           id='OFF-WHITE'
-          name='OFF-WHITE'
+          name='OFF-White'
           value={brandsFilter.vans}
           onChange={handleChange}
         />

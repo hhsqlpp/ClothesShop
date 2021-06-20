@@ -8,9 +8,10 @@ import FilterColor from "../components/FilterColor";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
-  let { product, loading } = useSelector((state) => state.product);
+  let { products, loading } = useSelector((state) => state.product);
   let { categoryName } = useParams();
   let { filters } = useSelector((state) => state.filter);
+  let [filteredProducts, setFilteredProducts] = useState(products);
 
   useEffect(() => {
     dispatch(fetchProduct(categoryName));
@@ -39,22 +40,17 @@ export default function ProductPage() {
       break;
   }
 
-  let [filteredProducts, setFilteredProducts] = useState(product)
-
   useEffect(() => {
-    setFilteredProducts(product.filter((item) => {
-      if (filters.length) {
-        return filters.includes(item.brand)
+    setFilteredProducts(
+      products.filter((item) => {
+        if (filters.length) {
+          return filters.includes(item.brand)
+        }
 
-      } 
-
-      return product
-      })  
-    )
-    
-    console.log(filteredProducts)
-    console.log(product)
-  }, [filters.length, product.length])
+        return products;
+      })
+    );
+  }, [filters.length, products.length]);
 
   return (
     <div className='main'>
@@ -63,7 +59,7 @@ export default function ProductPage() {
         <div className='product'>
           {!loading ? (
             <>
-              {filteredProducts.map((item) => (      
+              {filteredProducts.map((item) => (
                 <Product data={item} key={item.id} id={categoryName} />
               ))}
             </>
@@ -72,8 +68,8 @@ export default function ProductPage() {
           )}
         </div>
         <div className='filter'>
-          <FilterBrand product={product} />
-          <FilterColor product={product} />
+          <FilterBrand products={products} />
+          <FilterColor products={products} />
         </div>
       </div>
     </div>
