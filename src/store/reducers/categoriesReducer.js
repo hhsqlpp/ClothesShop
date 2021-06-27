@@ -13,25 +13,21 @@ export default function categoriesReducer(state = initialState, action) {
                 ...state,
                 categories: action.payload 
             }
-            break;
         case CATEGORIES_FETCH_START:
             return {
                 ...state,
                 loading: true
             }
-            break;
         case CATEGORIES_FETCH_END:
             return {
                 ...state,
                 loading: false 
             }
-            break;
         case CATEGORIES_SUCCESS:
             return {
                 ...state,
                 error: false
             }
-            break;
         case CATEGORIES_FAIlURE:
             return {
                 ...state,
@@ -40,6 +36,5 @@ export default function categoriesReducer(state = initialState, action) {
 
         default:
             return state;
-            break;
     }
 }
