@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Product({ data, id }) {
+export default function Product({ data, id, currentProduct }) {
   return (
     <div className='product__item'>
       <div className='product__photo'>

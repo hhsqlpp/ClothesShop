@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Product from "../components/Product";
 import FilterBrand from "../components/FilterBrand";
 import FilterColor from "../components/FilterColor";
+import Pagination from "./Pagination";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
@@ -12,10 +13,15 @@ export default function ProductPage() {
   let { categoryName } = useParams();
   let { filters } = useSelector((state) => state.filter);
   let [filteredProducts, setFilteredProducts] = useState(products);
+  let [currentPage, setCurrentPage] = useState(1);
+  let [productsPerPage] = useState(8);
+  const [search, setSearch] = useState("");
+
+  const handleChange = (e) => setSearch(e.target.value);
 
   useEffect(() => {
     dispatch(fetchProduct(categoryName));
-  }, [categoryName]);
+  }, [categoryName, dispatch]);
 
   let heading = "";
 
@@ -40,21 +46,39 @@ export default function ProductPage() {
       break;
   }
 
+  const lastProductIndex = currentPage * productsPerPage;
+  const firstProductIndex = lastProductIndex - productsPerPage;
+  const currentProduct = products.slice(firstProductIndex, lastProductIndex);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   useEffect(() => {
     setFilteredProducts(
-      products.filter((item) => {
+      currentProduct.filter((item) => {
         if (filters.length) {
-          return filters.includes(item.brand)
+          return filters.includes(item.brand);
+        } else if (search) {
+          return item.name.toLowerCase().includes(search.toLowerCase());
         }
 
-        return products;
+        return currentProduct;
       })
     );
-  }, [filters.length, products.length]);
+  }, [filters.length, currentProduct.length, currentPage, products, search]);
 
   return (
     <div className='main'>
       <h1>{heading}</h1>
+      <form className='search'>
+        <input
+          type='text'
+          onChange={handleChange}
+          placeholder='Поиск'
+          value={search}
+        />
+      </form>
       <div className='container'>
         <div className='product'>
           {!loading ? (
@@ -72,6 +96,11 @@ export default function ProductPage() {
           <FilterColor products={products} />
         </div>
       </div>
+      <Pagination
+        productsPerPage={productsPerPage}
+        totalProducts={products.length}
+        paginate={paginate}
+      />
     </div>
   );
 }
