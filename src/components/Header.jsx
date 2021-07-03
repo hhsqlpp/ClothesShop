@@ -3,6 +3,7 @@ import cart from "../assets/cart.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories } from "../store/actions/categories";
+import BurgerMenu from "../components/BurgerMenu";
 
 export default function Header() {
   let { categories, loading } = useSelector((state) => state.categories);
@@ -16,6 +17,7 @@ export default function Header() {
     <header className='header'>
       <div className='container'>
         <Link to='/'>Logo</Link>
+        <BurgerMenu />
         <nav className='navigation'>
           {!loading ? (
             categories.map((category) => (
@@ -31,7 +33,7 @@ export default function Header() {
           <Link to='/login' className='login'>
             Войти
           </Link>
-          {localStorage.getItem("x-token") === "token_2_-FtINHc" ? (
+          {localStorage.getItem("x-token") === "token_U2qcHMPF_" ? (
             <Link to='/admin' className='admin'>
               Админ
             </Link>

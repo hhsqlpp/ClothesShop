@@ -7,9 +7,11 @@ import {
   fetchChangeProduct,
   fetchProduct,
 } from "../store/actions/product";
+import Spinner from "../components/Spinner";
+import ErrorBlock from "../components/ErrorBlock";
 
 export default function AdminCategory() {
-  let { products, loading } = useSelector((state) => state.product);
+  let { products, loading, error } = useSelector((state) => state.product);
   let dispatch = useDispatch();
 
   let [changeForm, setChangeForm] = useState({});
@@ -84,20 +86,25 @@ export default function AdminCategory() {
             Добавить
           </button>
         </div>
-        {loading ? (
-          <div>LOADING</div>
+        {!error ? (
+          loading ? (
+            <Spinner />
+          ) : (
+            products.map((item) => {
+              return (
+                <AdminCategoryItem
+                  data={item}
+                  key={item.id}
+                  toggleChangeModal={toggleChangeModal}
+                  setId={setId}
+                />
+              );
+            })
+          )
         ) : (
-          products.map((item) => {
-            return (
-              <AdminCategoryItem
-                data={item}
-                key={item.id}
-                toggleChangeModal={toggleChangeModal}
-                setId={setId}
-              />
-            );
-          })
-        )}
+          <ErrorBlock />
+        )
+        }
         <div className={`modal ${!changeModal ? "none" : null}`}>
           <div className='modal-dialog'>
             <div className='modal-content'>

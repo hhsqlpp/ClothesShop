@@ -19,34 +19,28 @@ export default function (state = initialState, action) {
         ...state,
         productInfo: action.payload,
       };
-      break;
     case PRODUCT_FETCH_START:
       return {
         ...state,
         loading: true,
       };
-      break;
     case PRODUCT_INFO_FETCH_END:
       return {
         ...state,
         loading: false,
       };
-      break;
     case PRODUCT_INFO_SUCCESS:
       return {
         ...state,
         error: false,
       };
-      break;
     case PRODUCT_INFO_FAILURE:
       return {
         ...state,
         error: true,
       };
-      break;
 
     default:
       return state;
-      break;
   }
 }

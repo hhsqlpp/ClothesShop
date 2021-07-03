@@ -11,17 +11,12 @@ export default function authReducer(state = initialState, action) {
         ...state,
         logined: true,
       };
-      break;
-
     case LOGIN_FAILURE:
       return {
         ...state,
         logined: false,
       };
-      break;
-
     default:
       return state;
-      break;
   }
 }

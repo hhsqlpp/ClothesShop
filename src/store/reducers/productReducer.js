@@ -51,7 +51,7 @@ export default function productReducer(state = initialState, action) {
     case PRODUCT_SUCCESS:
       return {
         ...state,
-        loading: false,
+        error: false,
       };
     case PRODUCT_FAILURE:
       return {

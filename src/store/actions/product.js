@@ -76,7 +76,7 @@ export function fetchProduct(id) {
     fetch("http://localhost:1717/category/" + id)
       .then((data) => data.json())
       .then((data) => {
-        if (typeof data === "string") {
+        if (!data) {
           dispatch({ type: PRODUCT_FAILURE });
         } else {
           dispatch(setProduct(data));

@@ -6,10 +6,12 @@ import Product from "../components/Product";
 import FilterBrand from "../components/FilterBrand";
 import FilterColor from "../components/FilterColor";
 import Pagination from "./Pagination";
+import Spinner from "../components/Spinner";
+import ErrorBlock from "../components/ErrorBlock";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
-  let { products, loading } = useSelector((state) => state.product);
+  let { products, loading, error } = useSelector((state) => state.product);
   let { categoryName } = useParams();
   let { filters } = useSelector((state) => state.filter);
   let [filteredProducts, setFilteredProducts] = useState(products);
@@ -81,15 +83,22 @@ export default function ProductPage() {
       </form>
       <div className='container'>
         <div className='product'>
-          {!loading ? (
-            <>
-              {filteredProducts.map((item) => (
-                <Product data={item} key={item.id} id={categoryName} />
-              ))}
-            </>
-          ) : (
-            <div>LOADING</div>
-          )}
+          {
+            !error ? (
+              !loading ? (
+                <>
+                  {filteredProducts.map((item) => (
+                    <Product data={item} key={item.id} id={categoryName} />
+                  ))}
+                </>
+              ) : (
+                <Spinner />
+              )
+            ) : (
+              <ErrorBlock />
+            )
+          }
+          
         </div>
         <div className='filter'>
           <FilterBrand products={products} />
