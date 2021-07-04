@@ -2,15 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { deleteFromCart } from "../store/actions/cart";
-import { getMeAction } from "../store/actions/auth";
-import { Link } from "react-router-dom";
 import { fetchOrder } from "../store/actions/order";
 import setHistory from "../store/actions/history";
 
 export default function CartPage() {
   let dispatch = useDispatch();
   let { cart } = useSelector((state) => state.cart);
-  let { logined } = useSelector((state) => state.auth);
 
   let [modal, setModal] = useState(false);
   let [totalPrice, setTotalPrice] = useState(0);
@@ -76,84 +73,71 @@ export default function CartPage() {
     }
   }, [cart]);
 
-  useEffect(() => {
-    let token = localStorage.getItem("x-token");
-    dispatch(getMeAction(token));
-  }, []);
-
   return (
     <div className='cart'>
       <div className='container'>
-        {logined ? (
-          <>
-            {cart.length === 0 ? (
-              <div className='cart-empty'>Корзина пуста</div>
-            ) : (
-              <>
-                <div className='cart-block'>
-                  {cart.map((item) => (
-                    <CartItem
-                      data={item}
-                      key={item.id}
-                      handleRemove={handleRemove}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-            <div className='result'>
-              <div className='total-price'>
-                <span>Итого:</span>
-                <span>{totalPrice} сом</span>
+        <>
+          {cart.length === 0 ? (
+            <div className='cart-empty'>Корзина пуста</div>
+          ) : (
+            <>
+              <div className='cart-block'>
+                {cart.map((item) => (
+                  <CartItem
+                    data={item}
+                    key={item.id}
+                    handleRemove={handleRemove}
+                  />
+                ))}
               </div>
-              <div className='buy-block'>
-                <button id='buy' type='button' onClick={handleOpenModal}>
-                  Купить
-                </button>
-              </div>
+            </>
+          )}
+          <div className='result'>
+            <div className='total-price'>
+              <span>Итого:</span>
+              <span>{totalPrice} сом</span>
             </div>
-            <div className={`modal ${!modal ? "none" : null}`}>
-              <div className='modal-dialog'>
-                <div className='modal-content'>
-                  <h3>Оформить заказ</h3>
-                  <form onSubmit={handleSubmit}>
-                    <label htmlFor='name'>Имя:</label>
-                    <input
-                      type='text'
-                      name='name'
-                      placeholder='Иванов Александр'
-                      onChange={handleChange}
-                      value={buyForm.name}
-                    />
-                    <label htmlFor='phone'>Номер телефона:</label>
-                    <input
-                      type='text'
-                      name='phone'
-                      placeholder='0 123 456 789'
-                      onChange={handleChange}
-                      value={buyForm.phone}
-                    />
-                    <label htmlFor='addres'>Адрес:</label>
-                    <input
-                      type='text'
-                      name='address'
-                      placeholder='Тверская улица, дом 13'
-                      onChange={handleChange}
-                      value={buyForm.address}
-                    />
-                    <button type='submit'>Купить</button>
-                  </form>
-                </div>
-              </div>
+            <div className='buy-block'>
+              <button id='buy' type='button' onClick={handleOpenModal}>
+                Купить
+              </button>
             </div>
-          </>
-        ) : (
-          <div className='not-auth'>
-            Вы не авторизованы!
-            <br />
-            <Link to='/login'>Авторизоваться</Link>
           </div>
-        )}
+          <div className={`modal ${!modal ? "none" : null}`}>
+            <div className='modal-dialog'>
+              <div className='modal-content'>
+                <h3>Оформить заказ</h3>
+                <form onSubmit={handleSubmit}>
+                  <label htmlFor='name'>Имя:</label>
+                  <input
+                    type='text'
+                    name='name'
+                    placeholder='Иванов Александр'
+                    onChange={handleChange}
+                    value={buyForm.name}
+                  />
+                  <label htmlFor='phone'>Номер телефона:</label>
+                  <input
+                    type='text'
+                    name='phone'
+                    placeholder='0 123 456 789'
+                    onChange={handleChange}
+                    value={buyForm.phone}
+                  />
+                  <label htmlFor='addres'>Адрес:</label>
+                  <input
+                    type='text'
+                    name='address'
+                    placeholder='Тверская улица, дом 13'
+                    onChange={handleChange}
+                    value={buyForm.address}
+                  />
+                  <button type='submit'>Купить</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </>
       </div>
     </div>
   );
