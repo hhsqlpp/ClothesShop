@@ -30,7 +30,6 @@ export default function Register() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("x-token", data.token);
-          dispatch(getMeAction());
           alert("You have logined successfully");
           window.location.href = "/";
         } else {

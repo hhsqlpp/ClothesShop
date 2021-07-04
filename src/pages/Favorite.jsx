@@ -1,9 +1,17 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import getMeAction from "../store/actions/auth";
 
 export default function Favorite() {
   const { favoriteProducts } = useSelector((state) => state.favorite);
   const { logined } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("x-token");
+
+  useEffect(() => {
+    dispatch(getMeAction(token))
+  })
 
   return (
     <>

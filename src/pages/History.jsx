@@ -1,9 +1,18 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import getMeAction from "../store/actions/auth";
 
 export default function History() {
   const { shopping } = useSelector((state) => state.history);
   const { logined } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("x-token");
+  console.log(token)
+
+  useEffect(() => {
+    dispatch(getMeAction(token))
+  })
 
   return (
     <>
