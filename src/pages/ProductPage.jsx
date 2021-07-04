@@ -12,20 +12,20 @@ import ErrorBlock from "../components/ErrorBlock";
 export default function ProductPage() {
   let dispatch = useDispatch();
   let { products, loading, error } = useSelector((state) => state.product);
-  let { categoryName } = useParams();
   let { filters } = useSelector((state) => state.filter);
+
+  let { categoryName } = useParams();
+
   let [filteredProducts, setFilteredProducts] = useState(products);
   let [currentPage, setCurrentPage] = useState(1);
   let [productsPerPage] = useState(8);
   const [search, setSearch] = useState("");
 
-  const handleChange = (e) => setSearch(e.target.value);
-
-  useEffect(() => {
-    dispatch(fetchProduct(categoryName));
-  }, [categoryName, dispatch]);
-
   let heading = "";
+
+  const lastProductIndex = currentPage * productsPerPage;
+  const firstProductIndex = lastProductIndex - productsPerPage;
+  const currentProduct = products.slice(firstProductIndex, lastProductIndex);
 
   switch (categoryName) {
     case "shoes":
@@ -48,9 +48,11 @@ export default function ProductPage() {
       break;
   }
 
-  const lastProductIndex = currentPage * productsPerPage;
-  const firstProductIndex = lastProductIndex - productsPerPage;
-  const currentProduct = products.slice(firstProductIndex, lastProductIndex);
+  const handleChange = (e) => setSearch(e.target.value);
+
+  useEffect(() => {
+    dispatch(fetchProduct(categoryName));
+  }, [categoryName, dispatch]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -83,22 +85,19 @@ export default function ProductPage() {
       </form>
       <div className='container'>
         <div className='product'>
-          {
-            !error ? (
-              !loading ? (
-                <>
-                  {filteredProducts.map((item) => (
-                    <Product data={item} key={item.id} id={categoryName} />
-                  ))}
-                </>
-              ) : (
-                <Spinner />
-              )
+          {!error ? (
+            !loading ? (
+              <>
+                {filteredProducts.map((item) => (
+                  <Product data={item} key={item.id} id={categoryName} />
+                ))}
+              </>
             ) : (
-              <ErrorBlock />
+              <Spinner />
             )
-          }
-          
+          ) : (
+            <ErrorBlock />
+          )}
         </div>
         <div className='filter'>
           <FilterBrand products={products} />

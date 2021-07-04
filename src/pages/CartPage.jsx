@@ -5,6 +5,7 @@ import { deleteFromCart } from "../store/actions/cart";
 import { getMeAction } from "../store/actions/auth";
 import { Link } from "react-router-dom";
 import { fetchOrder } from "../store/actions/order";
+import setHistory from "../store/actions/history";
 
 export default function CartPage() {
   let dispatch = useDispatch();
@@ -27,6 +28,13 @@ export default function CartPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const date = new Date().format("h:i:s m-d-Y");
+
+    const historyObj = {
+      date: date,
+      products: [],
+    };
+
     const orderObj = {
       name: buyForm.name,
       phone: buyForm.phone,
@@ -36,6 +44,9 @@ export default function CartPage() {
     };
 
     cart.forEach((item) => orderObj.orders.push(item));
+    cart.forEach((item) => historyObj.products.push(item));
+
+    dispatch(setHistory(historyObj));
     dispatch(fetchOrder(orderObj));
 
     setModal(false);

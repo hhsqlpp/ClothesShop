@@ -14,12 +14,16 @@ import AdminPage from "./pages/AdminPage";
 import AdminCategory from "./pages/AdminCategory";
 import OrdersPage from "./pages/OrdersPage";
 import OrderInfo from "./pages/OrderInfo";
+import Favorite from "./pages/Favorite";
+import History from "./pages/History";
 
 function App() {
   return (
     <Router>
       <Header />
       <Switch>
+        <Route path='/user/history' component={History} />
+        <Route path='/user/favorite' component={Favorite} />
         <Route path='/admin/orders/:orderid' component={OrderInfo} />
         <Route path='/admin/orders' component={OrdersPage} />
         <Route path='/admin/:category' component={AdminCategory} />
