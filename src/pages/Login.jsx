@@ -27,10 +27,10 @@ export default function Login() {
             .then((data) => {
                 if (data.token) {
                     localStorage.setItem("x-token", data.token);
-                    alert("You have logined successfully");
+                    alert("Вы авторизованы");
                     window.location.href = "/";
                 } else {
-                    alert("Login Error");
+                    alert("Произошла ошибка");
                 }
             });
     }
