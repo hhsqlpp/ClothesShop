@@ -1,6 +1,6 @@
 import { LOGIN_FAILURE, LOGIN_SUCCESS } from "./types";
 
-export function getMeAction(token) {
+export default function getMeAction(token) {
     const request = {
         headers: {
             "X-Auth": token

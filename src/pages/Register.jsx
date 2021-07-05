@@ -30,11 +30,10 @@ export default function Register() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("x-token", data.token);
-          dispatch(getMeAction());
-          alert("You have logined successfully");
+          alert("Вы зарегистрировались");
           window.location.href = "/";
         } else {
-          alert("Login Error");
+          alert("Произошла ошибка");
         }
       });
   };
