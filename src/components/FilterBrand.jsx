@@ -41,7 +41,7 @@ export default function FilterBrand() {
           name='all'
           value={brandsFilter.all}
           onChange={handleChange}
-          checked={brandsFilter.all ? true: false}
+          checked={brandsFilter.all ? true : false}
         />
         <label htmlFor='all'>Все</label>
       </div>

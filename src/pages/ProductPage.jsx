@@ -8,6 +8,7 @@ import FilterColor from "../components/FilterColor";
 import Pagination from "./Pagination";
 import Spinner from "../components/Spinner";
 import ErrorBlock from "../components/ErrorBlock";
+import FilterMenu from "../components/FilterMenu";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
@@ -75,6 +76,7 @@ export default function ProductPage() {
   return (
     <div className='main'>
       <h1>{heading}</h1>
+      <FilterMenu />
       <form className='search'>
         <input
           type='text'
