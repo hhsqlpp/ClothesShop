@@ -31,7 +31,10 @@ function App() {
         <Route path='/register' component={Register} />
         <Route path='/login' component={Login} />
         <Route path='/cart' component={CartPage} />
-        <Route path='/category/:categoryName/:productid' component={ProductInfo} />
+        <Route
+          path='/category/:categoryName/:productid'
+          component={ProductInfo}
+        />
         <Route path='/category/:categoryName' component={ProductPage} />
         <Route exact path='/' component={CategoryPage} />
       </Switch>

@@ -1,36 +1,4 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetFilter, setFilter } from "../store/actions/filter";
-
-export default function FilterBrand() {
-  let [brandsFilter, setBrandsFilter] = useState({ all: true });
-  let dispatch = useDispatch();
-  let { filters } = useSelector((state) => state.filter);
-
-  const handleChange = (e) => {
-    setBrandsFilter({
-      ...brandsFilter,
-      [e.target.name]: e.target.checked,
-    });
-
-    if (filters.includes(e.target.name)) {
-      dispatch(resetFilter(e.target.name));
-    } else {
-      dispatch(setFilter(e.target.name));
-    }
-
-    if (!filters.length) {
-      setBrandsFilter({
-        ...brandsFilter,
-        all: false,
-      });
-    }
-
-    if (filters.includes("all")) {
-      dispatch(resetFilter("all"));
-    }
-  };
-
+export default function FilterBrand({ brandsFilter, handleChangeBrand }) {
   return (
     <form className='filter-brand'>
       <h4>Бренд:</h4>
@@ -40,7 +8,7 @@ export default function FilterBrand() {
           id='all'
           name='all'
           value={brandsFilter.all}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
           checked={brandsFilter.all ? true : false}
         />
         <label htmlFor='all'>Все</label>
@@ -51,7 +19,7 @@ export default function FilterBrand() {
           id='Nike'
           name='Nike'
           value={brandsFilter.nike}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='Nike'>Nike</label>
       </div>
@@ -61,7 +29,7 @@ export default function FilterBrand() {
           id='Adidas'
           name='Adidas'
           value={brandsFilter.adidas}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='Adidas'>Adidas</label>
       </div>
@@ -71,7 +39,7 @@ export default function FilterBrand() {
           id='Puma'
           name='Puma'
           value={brandsFilter.puma}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='Puma'>Puma</label>
       </div>
@@ -81,7 +49,7 @@ export default function FilterBrand() {
           id='Reebok'
           name='Reebok'
           value={brandsFilter.reebok}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='Reebok'>Reebok</label>
       </div>
@@ -91,7 +59,7 @@ export default function FilterBrand() {
           id='Air Jordan'
           name='Air Jordan'
           value={brandsFilter.airJordan}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='Air Jordan'>Air Jordan</label>
       </div>
@@ -101,7 +69,7 @@ export default function FilterBrand() {
           id='VANS'
           name='VANS'
           value={brandsFilter.vans}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='VANS'>VANS</label>
       </div>
@@ -111,7 +79,7 @@ export default function FilterBrand() {
           id='OFF-WHITE'
           name='OFF-White'
           value={brandsFilter.vans}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='OFF-WHITE'>OFF-WHITE</label>
       </div>
@@ -121,7 +89,7 @@ export default function FilterBrand() {
           id='Balenciaga'
           name='Balenciaga'
           value={brandsFilter.offWhite}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='Balenciaga'>Balenciaga</label>
       </div>
@@ -131,7 +99,7 @@ export default function FilterBrand() {
           id='The North Face'
           name='The North Face'
           value={brandsFilter.theNorthFace}
-          onChange={handleChange}
+          onChange={handleChangeBrand}
         />
         <label htmlFor='The North Face'>The North Face</label>
       </div>

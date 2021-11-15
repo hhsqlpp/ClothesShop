@@ -8,7 +8,7 @@ import FilterColor from "../components/FilterColor";
 import Pagination from "./Pagination";
 import Spinner from "../components/Spinner";
 import ErrorBlock from "../components/ErrorBlock";
-import FilterMenu from "../components/FilterMenu";
+import { resetFilter, setFilter } from "../store/actions/filter";
 
 export default function ProductPage() {
   let dispatch = useDispatch();
@@ -21,6 +21,8 @@ export default function ProductPage() {
   let [currentPage, setCurrentPage] = useState(1);
   let [productsPerPage] = useState(8);
   const [search, setSearch] = useState("");
+  let [brandsFilter, setBrandsFilter] = useState({ all: true });
+  let [colorsFilter, setColorsFilter] = useState({ allColors: true });
 
   let heading = "";
 
@@ -51,6 +53,54 @@ export default function ProductPage() {
 
   const handleChange = (e) => setSearch(e.target.value);
 
+  const handleChangeColor = (e) => {
+    setColorsFilter({
+      ...colorsFilter,
+      [e.target.value]: e.target.id,
+    });
+
+    if (filters.includes(e.target.id)) {
+      dispatch(resetFilter(e.target.id));
+    } else {
+      dispatch(setFilter(e.target.id));
+    }
+
+    if (!filters.length) {
+      setColorsFilter({
+        ...colorsFilter,
+        allColors: false,
+      });
+    }
+
+    if (filters.includes("allColors")) {
+      dispatch(resetFilter("allColors"));
+    }
+  };
+
+  const handleChangeBrand = (e) => {
+    setBrandsFilter({
+      ...brandsFilter,
+      [e.target.name]: e.target.checked,
+    });
+
+    if (filters.includes(e.target.name)) {
+      dispatch(resetFilter(e.target.name));
+    } else {
+      dispatch(setFilter(e.target.name));
+    }
+
+    if (!filters.length) {
+      setBrandsFilter({
+        ...brandsFilter,
+        all: false,
+      });
+    }
+
+    if (filters.includes("all")) {
+      dispatch(resetFilter("all"));
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchProduct(categoryName));
   }, [categoryName, dispatch]);
@@ -76,7 +126,6 @@ export default function ProductPage() {
   return (
     <div className='main'>
       <h1>{heading}</h1>
-      <FilterMenu />
       <form className='search'>
         <input
           type='text'
@@ -102,8 +151,16 @@ export default function ProductPage() {
           )}
         </div>
         <div className='filter'>
-          <FilterBrand products={products} />
-          <FilterColor products={products} />
+          <FilterBrand
+            brandsFilter={brandsFilter}
+            setBrandsFilter={setBrandsFilter}
+            handleChangeBrand={handleChangeBrand}
+          />
+          <FilterColor
+            colorsFilter={colorsFilter}
+            setColorsFilter={setColorsFilter}
+            handleChangeColor={handleChangeColor}
+          />
         </div>
       </div>
       <Pagination

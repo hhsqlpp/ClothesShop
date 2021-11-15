@@ -1,36 +1,4 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetFilter, setFilter } from "../store/actions/filter";
-
-export default function FilterColor() {
-  let [colorsFilter, setColorsFilter] = useState({ allColors: true });
-  let dispatch = useDispatch();
-  let { filters } = useSelector((state) => state.filter);
-
-  const handleChange = (e) => {
-    setColorsFilter({
-      ...colorsFilter,
-      [e.target.value]: e.target.id,
-    });
-
-    if (filters.includes(e.target.id)) {
-      dispatch(resetFilter(e.target.id));
-    } else {
-      dispatch(setFilter(e.target.id));
-    }
-
-    if (!filters.length) {
-      setColorsFilter({
-        ...colorsFilter,
-        allColors: false,
-      });
-    }
-
-    if (filters.includes("allColors")) {
-      dispatch(resetFilter("allColors"));
-    }
-  };
-
+export default function FilterColor({ colorsFilter, handleChangeColor }) {
   return (
     <form className='filter-color'>
       <h4>Цвет:</h4>
@@ -38,7 +6,7 @@ export default function FilterColor() {
         <input
           name='allColors'
           value={colorsFilter.allColors}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='allColors'
           checked={colorsFilter.allColors ? "checked" : false}
@@ -49,7 +17,7 @@ export default function FilterColor() {
         <input
           name='white'
           value={colorsFilter.white}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Белый'
         />
@@ -59,7 +27,7 @@ export default function FilterColor() {
         <input
           name='black'
           value={colorsFilter.black}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Черный'
         />
@@ -69,7 +37,7 @@ export default function FilterColor() {
         <input
           name='blue'
           value={colorsFilter.blue}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Синий'
         />
@@ -79,7 +47,7 @@ export default function FilterColor() {
         <input
           name='red'
           value={colorsFilter.red}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Красный'
         />
@@ -89,7 +57,7 @@ export default function FilterColor() {
         <input
           name='grey'
           value={colorsFilter.grey}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Серый'
         />
@@ -99,7 +67,7 @@ export default function FilterColor() {
         <input
           name='brown'
           value={colorsFilter.brown}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Коричневый'
         />
@@ -109,7 +77,7 @@ export default function FilterColor() {
         <input
           name='yellow'
           value={colorsFilter.yellow}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Желтый'
         />
@@ -119,7 +87,7 @@ export default function FilterColor() {
         <input
           name='green'
           value={colorsFilter.green}
-          onChange={handleChange}
+          onChange={handleChangeColor}
           type='checkbox'
           id='Зеленый'
         />

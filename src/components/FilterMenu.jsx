@@ -1,66 +1,15 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetFilter, setFilter } from "../store/actions/filter";
 
-export default function FilterMenu() {
-  let [colorsFilter, setColorsFilter] = useState({ allColors: true });
-  let [brandsFilter, setBrandsFilter] = useState({ all: true });
-
+export default function FilterMenu({
+  brandsFilter,
+  colorsFilter,
+  handleChangeColor,
+  handleChangeBrand,
+}) {
   let [filterModal, setFilterModal] = useState(false);
 
   const toggleFilterModal = () => {
     setFilterModal(!filterModal);
-  };
-
-  let dispatch = useDispatch();
-  let { filters } = useSelector((state) => state.filter);
-
-  const handleChangeColor = (e) => {
-    setColorsFilter({
-      ...colorsFilter,
-      [e.target.value]: e.target.id,
-    });
-
-    if (filters.includes(e.target.id)) {
-      dispatch(resetFilter(e.target.id));
-    } else {
-      dispatch(setFilter(e.target.id));
-    }
-
-    if (!filters.length) {
-      setColorsFilter({
-        ...colorsFilter,
-        allColors: false,
-      });
-    }
-
-    if (filters.includes("allColors")) {
-      dispatch(resetFilter("allColors"));
-    }
-  };
-
-  const handleChangeBrand = (e) => {
-    setBrandsFilter({
-      ...brandsFilter,
-      [e.target.name]: e.target.checked,
-    });
-
-    if (filters.includes(e.target.name)) {
-      dispatch(resetFilter(e.target.name));
-    } else {
-      dispatch(setFilter(e.target.name));
-    }
-
-    if (!filters.length) {
-      setBrandsFilter({
-        ...brandsFilter,
-        all: false,
-      });
-    }
-
-    if (filters.includes("all")) {
-      dispatch(resetFilter("all"));
-    }
   };
 
   return (
